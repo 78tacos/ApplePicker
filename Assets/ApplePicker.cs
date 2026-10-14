@@ -16,10 +16,8 @@ public class ApplePicker : MonoBehaviour
     private int caughtApples = 0;
     private GameOverManager gameOverManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Create the baskets
         basketList = new List<GameObject>();
         for (int i = 0; i < numBaskets; i++)
         {
@@ -62,13 +60,12 @@ public class ApplePicker : MonoBehaviour
             {
                 roundCounter.NextRound();
             }
-            caughtApples = 0; // Reset for next round
+            caughtApples = 0;
         }
     }
 
     public void AppleMissed()
     {
-        // Destroy all of the falling apples
         GameObject[] AppleArray = GameObject.FindGameObjectsWithTag("Apple");
         foreach (GameObject tempGO in AppleArray)
         {
@@ -83,7 +80,6 @@ public class ApplePicker : MonoBehaviour
         {
             Destroy(basketGO);
         }
-        // end the game
         if (basketList.Count == 0)
         {
             if (gameOverManager != null)
