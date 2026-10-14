@@ -5,8 +5,6 @@ using UnityEngine.InputSystem; // Only include InputSystem on non-WebGL platform
 
 public class Basket : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     public ScoreCounter scoreCounter;
     private GameOverManager gameOverManager;
 
@@ -24,7 +22,7 @@ public class Basket : MonoBehaviour
 
         if (gameOverManager == null)
         {
-            // had to do this because it wouldn't find it because it's inactive
+            // GameObject.Find skips inactive objects.
             GameOverManager[] all = Resources.FindObjectsOfTypeAll<GameOverManager>();
             if (all != null && all.Length > 0)
             {
@@ -33,7 +31,6 @@ public class Basket : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 inputPos2D = Input.mousePosition;
@@ -60,14 +57,12 @@ public class Basket : MonoBehaviour
             scoreCounter.score += 100;
             HighScore.TRY_TO_SET_HIGH_SCORE(scoreCounter.score);
 
-            // Notify ApplePicker that an apple was caught
             ApplePicker apScript = Camera.main.GetComponent<ApplePicker>();
             apScript.AppleCaught();
         }
         else if (collidedWith.CompareTag("Branch"))
         {
             Destroy(collidedWith);
-            // Trigger game over when a branch is caught
             if (gameOverManager != null)
             {
                 gameOverManager.ShowGameOver();

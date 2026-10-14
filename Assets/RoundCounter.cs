@@ -3,17 +3,15 @@ using UnityEngine.UI;
 
 public class RoundCounter : MonoBehaviour
 {
-    public int currentRound = 1; // Starting round number
-    private Text roundText; // Reference to the on-screen text component
+    public int currentRound = 1;
+    private Text roundText;
     private GameOverManager gameOverManager;
 
     void Start()
     {
-        // Get the Text component attached to this GameObject
         roundText = GetComponent<Text>();
-        UpdateRoundDisplay(); // Display initial round
+        UpdateRoundDisplay();
 
-        // Find and reference the GameOverManager
         GameObject goCanvas = GameObject.Find("GameOverCanvas");
         if (goCanvas != null)
         {
@@ -30,12 +28,11 @@ public class RoundCounter : MonoBehaviour
         }
     }
 
-    // Call this method to advance to the next round
     public void NextRound()
     {
         if (currentRound >= 4)
         {
-            // End the game at the end of round 4
+            // Round 4 is the last round.
             if (gameOverManager != null)
             {
                 gameOverManager.ShowGameOver();
